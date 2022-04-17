@@ -16,7 +16,11 @@ NAME = so_long#(Nom de L'exécutable)
 
 ### Fichiers .c
 SRCS_C	= so_long.c \
-		  ft_image_put.c \
+		  ft_put_grid.c \
+		  ft_init_xpm.c \
+		  ft_get_line.c \
+		  ft_utils.c \
+		  ft_free_to_destroy.c \
 
 #Place bonus files:
 SRCS_BONUS_C	=

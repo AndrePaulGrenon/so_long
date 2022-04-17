@@ -1,38 +1,44 @@
 #include "so_long.h"
 
-void	my_mlx_pixel_put(t_image *data, int x, int y, int color)
+int		ft_open_map(char **argv, t_assets *assets)
 {
-	char	*dst;
+	int		fd;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	fd = 0;
+	fd = open(argv[1], O_RDONLY | O_NOFOLLOW);
+	if (fd == -1)
+		return (-1);
+	assets->map = ft_get_map(fd);
+	close(fd);
+	return (0);
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
-	void	*screen;
-	void	*window;
-	t_image	img;
-	int 	i;
-	int		j;
+	void		*screen;
+	void		*window;
+	t_assets	*assets;
+	int			fd;
 
-	i = 0;
-	j = 0;
-
+	(void) argc;
 	screen =  mlx_init();
 	window = mlx_new_window(screen, 1920, 1080, "Les Pixels se touchent");	
-	img.img = mlx_new_image(screen, 1920, 1080);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 	
-	while (i < 80)
+	assets = ft_init_xpm(screen);	
+	fd = ft_open_map(argv, assets);
+	
+//	printf("map address: %p\nassets adress: %p\n\n", assets->map, assets);
+	
+	if (fd == -1)
 	{
-		while(j < 125)
-			my_mlx_pixel_put(&img, i, j++, 0x00FF0000);
-		j = 0;
-		i++;
+		ft_free_to_destroy(screen, assets);	
+		write(2, "Map Error\n", 10);
+		return (-1);
 	}
-	mlx_put_image_to_window(screen, window, img.img, 500, 500);
-	mlx_loop(screen);
+	printf("MAP :\n%s\n", assets->map);
 
+	ft_put_grid(screen, window, assets);
+	mlx_loop(screen);
+	ft_free_to_destroy(screen, assets);	
 	return (0);
 }
