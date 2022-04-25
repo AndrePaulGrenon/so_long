@@ -2,8 +2,6 @@
 
 void	ft_free_to_destroy(void *screen, t_assets *assets)
 {
-		if (assets->map)
-			free(assets->map);	
 		mlx_destroy_image(screen, assets->grass[0]);
 		mlx_destroy_image(screen, assets->grass[1]);
 		mlx_destroy_image(screen, assets->grass[2]);
@@ -13,9 +11,11 @@ void	ft_free_to_destroy(void *screen, t_assets *assets)
 		mlx_destroy_image(screen, assets->rock_column);
 		mlx_destroy_image(screen, assets->tree);
 		mlx_destroy_image(screen, assets->tent);
+		mlx_destroy_image(screen, assets->supplies);
 		mlx_destroy_image(screen, assets->road_left);
 		mlx_destroy_image(screen, assets->road_right);
 		mlx_destroy_image(screen, assets->road_main);
-		free(assets);
+		if (assets)
+			free(assets);
 	return ;
 }

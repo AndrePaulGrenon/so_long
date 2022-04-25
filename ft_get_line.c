@@ -1,12 +1,12 @@
 #include "so_long.h"
 
+
 char	*ft_trim(char *str, int size)
 {
 	int		i;
 	char	*temp;
 
 	temp = malloc(sizeof(char) * (size + 1));
-	printf("Trim addre: %p\n", temp);
 	i = 0;
 	while (i < size - 1)
 	{
@@ -28,7 +28,6 @@ char	*ft_read_map(int fd)
 	i = read(fd, temp, BUFF);
 	if (i < BUFF)
 		temp = ft_trim(temp, i);
-	//printf("-- temp after read:\n%s\n-- read output:%d\n", temp, i);
 	if (!i)
 	{	
 		free(temp);
