@@ -13,6 +13,7 @@ int	ft_set_data(t_assets *assets, int *i ,int *j)
 	{
 		*j = 0;
 		assets->y++;
+		assets->n_road = 0;
 	}
 	return (0);
 }
@@ -28,8 +29,15 @@ void	ft_tile_select(t_assets *assets, void *screen, void *window, int i)
 		ft_set_grass(assets, screen, window);
 	else if (assets->map[i] == '1')
 		ft_set_box(assets, screen, window);
+	else if (assets->map[i] == 'R')
+		ft_set_road(assets, screen, window);
 	else if (assets->map[i] == 'C')
 		ft_set_mush(assets, screen, window);	
+	else if (assets->map[i] == 'E')
+	{
+		mlx_put_image_to_window(screen, window, assets->tent, x, y);
+		assets->pos[assets->x][assets->y] = EX;
+	}	
 	else if (assets->map[i] == 'P')
 		ft_set_player(assets, screen, window);
 	return ;

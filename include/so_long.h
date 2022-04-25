@@ -17,19 +17,21 @@
 # define P_MUSH "./assets/mushroom_animation/XPM/"
 # define BUFF 20 
 
-# define EXIT 53
-# define UP 13 
-# define DOWN 1 
-# define LEFT 0 
-# define RIGHT 2
-
-enum 
+enum
 {
-	PLAIN,
+	LEFT,
+	DOWN,
+	RIGHT,
+	UP = 13, 
+	EXIT = 53,
+	PLAIN = 0,
 	PLAIN2,
-	WALL,
+	L_ROAD,
+	ROAD,
+	R_ROAD,
 	CHAMPI,
 	P_PLAYER,
+	WALL,
 	EX,
 };
 
@@ -38,6 +40,14 @@ typedef struct	s_vars
 	void	*screen;
 	void	*window;
 }				t_vars;
+
+typedef struct	s_data {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_data;
 
 typedef struct	s_player
 {
@@ -68,8 +78,10 @@ typedef struct	s_assets
 	int		y;
 	int		len;
 	int		heigth;
-	int		pos[30][24];
+	int		pos[40][64];
 	int		n_mush;
+	int		n_road;
+	int		collected;
 	char	*map;
 	bool	cant_move;
 	bool	collects;
@@ -81,15 +93,16 @@ typedef struct	s_assets
 	void	*tree;
 	void	*tent;
 	void	*supplies;
-	void	*road_left;
-	void	*road_right;
-	void	*road_main;
+	void	*l_road;
+	void	*r_road;
+	void	*road;
 	t_mush	*mush;
 	t_play	*player;
 	t_vars	*vars;
 }				t_assets;
 
-
+char		*ft_itoa(int n);
+void		ft_mini_ui(t_assets *assets);
 char		*ft_join(char *str1, char *str2);
 char		*nw_pth(char *PATH, char *xpm);
 int			ft_check_ber(char **argv);
@@ -103,8 +116,10 @@ int			ft_set_data(t_assets *assets, int *i, int *j);
 void		ft_set_box(t_assets *assets, void *screen, void *window);
 void		ft_set_player(t_assets *assets, void *screen, void *window);
 void		ft_set_mush(t_assets *assets, void *screen, void *window);
+void		ft_set_road(t_assets *assets, void *screen, void *window);
 void		ft_set_grass(t_assets *assets, void *screen, void *window);
 void    	ft_put_grid(void *screen, void *window, t_assets *assets);
+void		ft_clean_behind(t_assets *assets, int dx, int dy);
 char		*ft_get_map(int fd);
 void		ft_free_to_destroy(void *screen, t_assets *assets);
 int			ft_close(int keycode, t_vars *vars);

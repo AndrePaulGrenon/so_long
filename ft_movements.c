@@ -38,7 +38,6 @@ void	ft_walk(t_assets *assets, int nx, int ny)
 	img_r = assets->player->right;
 	scre = assets->vars->screen;
 	win = assets->vars->window;
-
 	if (assets->player->is_right == false)
 		mlx_put_image_to_window(scre, win, img_l, nx, ny);
 	else
@@ -46,29 +45,43 @@ void	ft_walk(t_assets *assets, int nx, int ny)
 	return ;
 }
 
+void	ft_clean_behind(t_assets *assets, int dx, int dy)
+{
+	void	*win;
+	void	*scre;
+
+	scre = assets->vars->screen;
+    win = assets->vars->window;
+	if (assets->pos[dx / 64][dy / 64] == PLAIN2)
+		mlx_put_image_to_window(scre, win, assets->grass[1], dx, dy);
+	else if (assets->pos[dx / 64][dy / 64] == PLAIN)
+		mlx_put_image_to_window(scre, win, assets->grass[0], dx, dy);
+	else if (assets->pos[dx / 64][dy / 64] == ROAD)
+		mlx_put_image_to_window(scre, win, assets->road, dx, dy);
+	else if (assets->pos[dx / 64][dy / 64] == L_ROAD)
+		mlx_put_image_to_window(scre, win, assets->l_road, dx, dy);
+	else if (assets->pos[dx / 64][dy / 64] == R_ROAD)
+		mlx_put_image_to_window(scre, win, assets->r_road, dx, dy);
+	else
+		mlx_put_image_to_window(scre, win, assets->grass[0], dx, dy);
+
+}
+
 void    ft_move(t_assets *assets, int dx, int dy)
 {
     int		x;
     int		y;
-    void    *win;
-    void    *scre;
 
-    scre = assets->vars->screen;
-    win = assets->vars->window;
     x = assets->player->x;
     y = assets->player->y;
-//	printf("playerx : %d playery: %d dx:%d dy; %d\n", x, y , dx , dy);
-	if (assets->pos[x + dx][y + dy] != 2)
+	if (assets->pos[x + dx][y + dy] < 7)
 	{
-		if (assets->pos[x + dx][y + dy] != 3)
+		if (assets->pos[x + dx][y + dy] != CHAMPI)
 			ft_walk(assets, 64 * (x + dx),  64 * (y + dy));
 		else
 			ft_collect(assets, 64 * (x + dx), 64 * (y + dy));
-		if (assets->pos[x][y] == 1)
-			mlx_put_image_to_window(scre, win, assets->grass[1], 64 * x, 64 * y);
-		else
-			mlx_put_image_to_window(scre, win, assets->grass[0], 64 * x, 64 * y);	
-    	assets->player->x = x + dx;
+		ft_clean_behind(assets, 64 * x, 64 *y);
+		assets->player->x = x + dx;
     	assets->player->y = y + dy;
 		assets->player->moves++;
         assets->cant_move = true;

@@ -12,9 +12,9 @@ void	ft_free_to_destroy(void *screen, t_assets *assets)
 		mlx_destroy_image(screen, assets->tree);
 		mlx_destroy_image(screen, assets->tent);
 		mlx_destroy_image(screen, assets->supplies);
-		mlx_destroy_image(screen, assets->road_left);
-		mlx_destroy_image(screen, assets->road_right);
-		mlx_destroy_image(screen, assets->road_main);
+		mlx_destroy_image(screen, assets->l_road);
+		mlx_destroy_image(screen, assets->r_road);
+		mlx_destroy_image(screen, assets->road);
 		if (assets)
 			free(assets);
 	return ;

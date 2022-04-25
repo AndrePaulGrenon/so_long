@@ -14,10 +14,11 @@ void	ft_anim_walk(t_assets *assets)
 		frame = 0;
 	win = assets->vars->window;
     scre = assets->vars->screen;
-	if (assets->pos[x / 64][y / 64] == 1)
+	ft_clean_behind(assets, x, y);
+/*	if (assets->pos[x / 64][y / 64] == 1)
 		mlx_put_image_to_window(scre, win, assets->grass[1], x, y);
 	else
-		mlx_put_image_to_window(scre, win, assets->grass[0], x, y);
+		mlx_put_image_to_window(scre, win, assets->grass[0], x, y);*/
 	if (assets->player->is_right)
 		mlx_put_image_to_window(scre, win, assets->player->right_move[frame % 3], x, y);
 	else
@@ -63,7 +64,7 @@ void	ft_anim_collect(t_assets *assets)
 	{
 		assets->collects = false;
         frame = 0;
-		assets->pos[x / 64][y / 64] = -1;
+		assets->pos[x / 64][y / 64] = 0;
 	}
     win = assets->vars->window;
     scre = assets->vars->screen;
@@ -71,6 +72,8 @@ void	ft_anim_collect(t_assets *assets)
 		mlx_put_image_to_window(scre, win, assets->grass[0], x, y);
     else
         mlx_put_image_to_window(scre, win, assets->mush->img[0], x, y);
+	if (frame == 7)
+		assets->collected++;
 	if (assets->player->is_right)
         mlx_put_image_to_window(scre, win, assets->player->right_collect[frame], x, y);
     else
@@ -94,17 +97,18 @@ int	ft_render_next(void *assets)
 			ft_anim_collect(data);
 		else
 			ft_anim_walk(data);
+		ft_mini_ui(data);
 		t = 0;
 	}
 	if (data->cant_move)
 	{
 		move++;
-		if (move > 1500 && data->collects == false)
+		if (move > 1200 && data->collects == false)
 		{
 			move = 0;
 			data->cant_move = false;
 		}
-		if (move > 6400 && data->collects == false)
+		if (move > 5400 && data->collects == false)
 		{
 			move = 0;
 			data->cant_move = false;

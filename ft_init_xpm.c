@@ -85,33 +85,27 @@ void	ft_terrain(t_assets *assets, void *screen)
 	assets->tree = ft_prep_assets(screen, P_TERRAIN, "tree"); 
 	assets->tent = ft_prep_assets(screen, P_TERRAIN, "tent"); 
 	assets->supplies = ft_prep_assets(screen, P_TERRAIN, "supplies"); 
-	assets->road_left = ft_prep_assets(screen, P_TERRAIN, "road_left"); 
-	assets->road_right = ft_prep_assets(screen, P_TERRAIN, "road_right"); 
-	assets->road_main = ft_prep_assets(screen, P_TERRAIN, "road_main");
+	assets->l_road = ft_prep_assets(screen, P_TERRAIN, "road_left"); 
+	assets->r_road = ft_prep_assets(screen, P_TERRAIN, "road_right"); 
+	assets->road = ft_prep_assets(screen, P_TERRAIN, "road_main");
 	return ;
 }
 
 t_assets	*ft_init_xpm(void *screen)
 {
 	t_assets	*assets;
-	int			i;
 
 	assets = malloc(sizeof(t_assets));
 	assets->mush = malloc(sizeof(t_mush));
 	assets->player = malloc(sizeof(t_play));
 	assets->mush->x = malloc(sizeof(int) * 100);
-	assets->mush->y = malloc(sizeof(int) * 100);
-	
+	assets->mush->y = malloc(sizeof(int) * 100);	
 	ft_terrain(assets, screen);
 	ft_mush(assets->mush, screen);
-	i = 0;
-	while (i < 100)
-	{	
-		assets->mush->x[i] = 0;
-		assets->mush->y[i++] = 0;
-	}
 	ft_player(assets->player, screen);
 	assets->player->moves = 0;
+	assets->n_road = 0;
+	assets->collected = 0;
 	assets->x = 0;
 	assets->y = 0;
 	assets->len = 0;

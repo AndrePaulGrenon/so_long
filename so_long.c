@@ -25,7 +25,7 @@ int	main(int argc, char **argv)
 	printf("Mush x: %d Mush y: %d\n", assets->mush->x[1], assets->mush->y[1]);
 	printf("Mush x: %d Mush y: %d\n", assets->mush->x[2], assets->mush->y[2]);
 	printf("Mush x: %d Mush y: %d\n", assets->mush->x[3], assets->mush->y[3]);
-	printf("ENUM : %d, %d, %d\n", PLAIN, CHAMPI, P_PLAYER);
+	printf("n_mush : %d\n", assets->n_mush);
 	mlx_hook(vars.window, 2, 1L<<0, ft_close, &vars);
 	mlx_hook(vars.window, 17, 1L<<17, ft_terminate, &vars);
 	mlx_key_hook(vars.window, ft_key_hook, assets);

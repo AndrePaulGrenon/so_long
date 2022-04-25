@@ -19,6 +19,7 @@ SRCS_C	= so_long.c \
 		  ft_open_map.c \
 		  ft_put_grid.c \
 		  ft_init_xpm.c \
+		  ft_set_assets.c \
 		  ft_set_images.c \
 		  ft_get_line.c \
 		  ft_utils.c \
@@ -26,6 +27,8 @@ SRCS_C	= so_long.c \
 		  ft_free_to_destroy.c \
 		  ft_functions.c \
 		  ft_render_next.c \
+		  ft_mini_ui.c \
+		  ft_itoa.c \
 		  ft_movements.c \
 		  ft_print_moves.c
 
