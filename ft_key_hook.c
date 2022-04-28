@@ -1,20 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_moves.c                                   :+:      :+:    :+:   */
+/*   ft_key_hook.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agrenon <agrenon@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/27 17:57:58 by agrenon           #+#    #+#             */
-/*   Updated: 2022/04/27 17:58:12 by agrenon          ###   ########.fr       */
+/*   Created: 2022/04/27 17:52:30 by agrenon           #+#    #+#             */
+/*   Updated: 2022/04/27 17:54:48 by agrenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <so_long.h>
 
-void	ft_print_moves(t_assets *assets)
+int	ft_key_hook(int keycode, t_assets *assets)
 {
-	write(1, "Moves: ", 6);
-	ft_putnbr_fd(assets->player->moves, 1);
-	write(1, "\n", 1);
+	if (keycode == UP && !assets->cant_move)
+		ft_move(assets, 0, -1);
+	if (keycode == DOWN && !assets->cant_move)
+		ft_move(assets, 0, 1);
+	if (keycode == RIGHT && !assets->cant_move)
+	{
+		assets->player->is_right = true;
+		ft_move(assets, 1, 0);
+	}
+	if (keycode == LEFT && !assets->cant_move)
+	{
+		assets->player->is_right = false;
+		ft_move(assets, -1, 0);
+	}
+	return (0);
 }

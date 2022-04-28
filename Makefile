@@ -19,6 +19,7 @@ SRCS_C	= so_long.c \
 		  ft_open_map.c \
 		  ft_put_grid.c \
 		  ft_init_xpm.c \
+		  ft_init_terrain.c \
 		  ft_set_assets.c \
 		  ft_set_images.c \
 		  ft_get_line.c \
@@ -27,19 +28,24 @@ SRCS_C	= so_long.c \
 		  ft_free_to_destroy.c \
 		  ft_functions.c \
 		  ft_render_next.c \
+		  ft_anim_tank.c \
 		  ft_mini_ui.c \
 		  ft_itoa.c \
 		  ft_movements.c \
+		  ft_key_hook.c \
 		  ft_print_moves.c
 
+SRCS_OTHER = ft_anim_utils.c \
+
 #Place bonus files:
-SRCS_BONUS_C	=
+SRCS_BONUS_C	= bonus/ft_anim_utils.c \
 
 #Place header:
 INCLUDE_H	= so_long.h 
 
 #Crée les fichiers objets à partir des fichiers .c:
-OBJS_O	= $(SRCS:.c=.o)
+OBJS_O			= $(SRCS:.c=.o)
+OBJS_BONUS_O	= $(B_SRCS:.c=.o)
 
 ###Préfixes:
 DIR			= 
@@ -49,9 +55,10 @@ INCLUDE_DIR = include/
 LIBFT		= libft/
 
 ### Répertoires:
-SRCS		= $(addprefix $(DIR), $(SRCS_C))
-B_SRCS		= $(addprefix $(B_DIR), $(SRCS_BONUS_C))
+SRCS		= $(addprefix $(DIR), $(SRCS_C) $(SRCS_OTHER))
+B_SRCS		= $(addprefix $(B_DIR), $(SRCS_BONUS_C)) $(SRCS)
 OBJS		= $(addprefix $(OBJS_DIR),$(OBJS_O))
+OBJS_BONUS	= $(addprefix , $(OBJS_BONUS_O))
 INCLUDE		= $(addprefix $(INCLUDE_DIR), $(INCLUDE_H))
 
 ### Compilation, archivage et autres fonctions
@@ -86,13 +93,24 @@ WHITE       = \033[37m
 
 all:	$(INCLUDE) obj $(OBJS) $(NAME)
 
+bonus:	$(INCLUDE) obj_b $(OBJS_BONUS) 
+	$(CC) $(CFLAGS) $(MLXFLAGS) $(OBJS_BONUS) -o ./so_long_bonus
+
 $(OBJS_DIR)%.o:%.c
 	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -Imlx -o $@ -c $<
+
+$(OBJS_DIR)$(B_DIR)%.o:%.c
+	$(CC) $(CFLAGS) -I../$(INCLUDE_DIR) -Imlx -o $@ -c $<
+
 
 $(NAME): 	$(OBJS)
 	$(CC) $(CFLAGS) $(MLXFLAGS) $(OBJS) $(OEXEC) 
 			@echo "\n$(BOLD)$(GREEN)Compilation de l'exécutable $(NAME) effectuée avec succès!\n" 
 		@echo "$(BLUE)$(BOLD)             8" && echo "           .d8b." && echo "       _.d8888888b._" && echo "     .88888888888888b." && echo "    d88888888888888888b" && echo "    8888888888888888888" && echo "    Y88888888888888888P" && echo "     'Y8888888888888P'" && echo "   _..._ 'Y88888P' _..._" && echo " .d88888b. Y888P .d88888b." && echo "d888888888b 888 d88888888b" && echo "888P  'Y8888888888P'  Y888" && echo " b8b    Y88888888P    d8Y" && echo "   \   #############  /" && echo "         dP d8b Yb" && echo "     Ob=dP d888b Yb=dO" && echo "       ¨  O88888O  ¨" && echo "           'Y8P'" &&echo "             '"
+
+obj_b:
+	@mkdir -p $(OBJS_DIR)
+	@mkdir -p $(OBJS_DIR)$(B_DIR)
 
 obj:
 	@mkdir -p $(OBJS_DIR)

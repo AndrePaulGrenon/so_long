@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_utils.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: agrenon <agrenon@student.42quebec.com>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/28 09:17:04 by agrenon           #+#    #+#             */
+/*   Updated: 2022/04/28 09:59:01 by agrenon          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 void	ft_putchar_fd(char c, int fd)
@@ -35,8 +47,7 @@ void	ft_putnbr_fd(int n, int fd)
 	return ;
 }
 
-
-char    *ft_join(char *str1, char *str2)
+char	*ft_join(char *str1, char *str2)
 {
 	char	*temp;
 	int		i;
@@ -66,7 +77,7 @@ char	*nw_pth(char *PATH, char *xpm)
 	int		j;
 	int		len;
 	char	*ptr;
-	
+
 	len = ft_strlen(PATH) + ft_strlen(xpm) + 5;
 	i = 0;
 	j = 0;

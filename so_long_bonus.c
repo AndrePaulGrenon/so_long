@@ -6,11 +6,11 @@
 /*   By: agrenon <agrenon@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 15:44:46 by agrenon           #+#    #+#             */
-/*   Updated: 2022/04/28 17:40:02 by agrenon          ###   ########.fr       */
+/*   Updated: 2022/04/28 16:36:49 by agrenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <so_long.h>
+#include "so_long.h"
 
 void	ft_mlx_functions(t_assets *assets, t_vars *vars)
 {
