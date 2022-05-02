@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: agrenon <agrenon@student.42quebec.com>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/02 14:43:02 by agrenon           #+#    #+#             */
+/*   Updated: 2022/05/02 14:53:46 by agrenon          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
@@ -24,7 +35,7 @@ enum
 	LEFT,
 	DOWN,
 	RIGHT,
-	UP = 13, 
+	UP = 13,
 	EXIT = 53,
 	PLAIN = 0,
 	PLAIN2,
@@ -37,13 +48,13 @@ enum
 	EX,
 };
 
-typedef struct	s_vars
+typedef struct s_vars
 {
 	void	*screen;
 	void	*window;
 }				t_vars;
 
-typedef struct	s_data {
+typedef struct s_data {
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
@@ -51,7 +62,7 @@ typedef struct	s_data {
 	int		endian;
 }				t_data;
 
-typedef struct	s_tank
+typedef struct s_tank
 {
 	int		xt[10];
 	int		yt[10];
@@ -60,7 +71,7 @@ typedef struct	s_tank
 	void	*rig[8];
 }				t_tank;
 
-typedef struct	s_player
+typedef struct s_player
 {
 	int		x;
 	int		y;
@@ -76,14 +87,20 @@ typedef struct	s_player
 	void	*right_collect[11];
 }				t_play;
 
-typedef struct	s_mush
+typedef struct s_mush
 {
 	int		*x;
 	int		*y;
 	void	*img[17];
 }				t_mush;
 
-typedef struct	s_assets
+typedef struct s_exit
+{
+	int		x;
+	int		y;
+}				t_exit;
+
+typedef struct s_assets
 {
 	int		x;
 	int		y;
@@ -116,6 +133,7 @@ typedef struct	s_assets
 	t_tank	*tank;
 	t_play	*player;
 	t_vars	*vars;
+	t_exit	*exit;
 }				t_assets;
 
 char		*ft_itoa(int n);
@@ -139,9 +157,10 @@ void		ft_set_player(t_assets *assets, void *screen, void *window);
 void		ft_set_mush(t_assets *assets, void *screen, void *window);
 void		ft_set_road(t_assets *assets, void *screen, void *window);
 void		ft_set_tank(t_assets *assets, void *scre, void *win);
+void		ft_set_exit(t_assets *assets, void *screen, void *window);
 void		ft_set_grass(t_assets *assets, void *screen, void *window);
-void    	ft_put_grid(void *screen, void *window, t_assets *assets);
-void		ft_tile_select(t_assets *assets,void *scre, void *win, int i);
+void		ft_put_grid(void *screen, void *window, t_assets *assets);
+void		ft_tile_select(t_assets *assets, void *scre, void *win, int i);
 void		ft_show_it(t_assets *assets, int x, int y, int pos);
 void		ft_clean_message(t_assets *assets);
 void		ft_init_tank_speed(t_assets *assets);

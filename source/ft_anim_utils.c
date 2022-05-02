@@ -6,7 +6,7 @@
 /*   By: agrenon <agrenon@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 16:22:52 by agrenon           #+#    #+#             */
-/*   Updated: 2022/04/28 18:15:30 by agrenon          ###   ########.fr       */
+/*   Updated: 2022/04/28 17:52:29 by agrenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,10 @@ void	ft_init_tank_speed(t_assets *assets)
 {
 	int	i;
 
-	printf("ALLO\n");
 	i = 0;
 	while (i < assets->n_tank)
 	{
-		assets->tank->speed[i] = 2 + rand() % 5;
+		assets->tank->speed[i] = 4 + (i % 2);
 		i++;
 	}
 	return ;

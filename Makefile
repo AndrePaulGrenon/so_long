@@ -14,6 +14,8 @@ NAME = so_long#(Nom de L'exécutable)
 
 ###----------------####1.  VARIABLES####----------------------------------###
 
+BONUS = so_long_bonus
+
 ### Fichiers .c
 SRCS_C	= so_long.c \
 		  ft_open_map.c \
@@ -33,32 +35,27 @@ SRCS_C	= so_long.c \
 		  ft_itoa.c \
 		  ft_movements.c \
 		  ft_key_hook.c \
-		  ft_print_moves.c
+		  ft_print_moves.c \
+		  ft_anim_utils.c \
 
-SRCS_OTHER = ft_anim_utils.c \
-
-#Place bonus files:
-SRCS_BONUS_C	= bonus/ft_anim_utils.c \
-
-#Place header:
 INCLUDE_H	= so_long.h 
 
 #Crée les fichiers objets à partir des fichiers .c:
-OBJS_O			= $(SRCS:.c=.o)
-OBJS_BONUS_O	= $(B_SRCS:.c=.o)
+OBJS_O			= $(SRCS_C:.c=.o)
 
+#VPATH			= $(DIR) $(B_DIR)
 ###Préfixes:
-DIR			= 
+DIR			= source/
 OBJS_DIR	= objs/
-B_DIR		= bonus/ 
+B_DIR		= bonus/
 INCLUDE_DIR = include/
 LIBFT		= libft/
 
 ### Répertoires:
-SRCS		= $(addprefix $(DIR), $(SRCS_C) $(SRCS_OTHER))
-B_SRCS		= $(addprefix $(B_DIR), $(SRCS_BONUS_C)) $(SRCS)
-OBJS		= $(addprefix $(OBJS_DIR),$(OBJS_O))
-OBJS_BONUS	= $(addprefix , $(OBJS_BONUS_O))
+SRCS		= $(addprefix $(DIR), $(SRCS_C))
+B_SRCS		= $(addprefix , $(SRCS_C))
+OBJS		= $(addprefix $(DIR), $(OBJS_O))
+OBJS_BONUS	= $(addprefix $(B_DIR), $(OBJS_O))
 INCLUDE		= $(addprefix $(INCLUDE_DIR), $(INCLUDE_H))
 
 ### Compilation, archivage et autres fonctions
@@ -91,29 +88,24 @@ WHITE       = \033[37m
 
 ###-----------------###-2. REGLES ##-------------------------------------###
 
-all:	$(INCLUDE) obj $(OBJS) $(NAME)
+all:	$(NAME)
 
-bonus:	$(INCLUDE) obj_b $(OBJS_BONUS) 
-	$(CC) $(CFLAGS) $(MLXFLAGS) $(OBJS_BONUS) -o ./so_long_bonus
+%.o:%.c
+	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -I. -Imlx -o $@ -c $<
 
-$(OBJS_DIR)%.o:%.c
-	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -Imlx -o $@ -c $<
-
-$(OBJS_DIR)$(B_DIR)%.o:%.c
-	$(CC) $(CFLAGS) -I../$(INCLUDE_DIR) -Imlx -o $@ -c $<
-
+$(BONUS): $(OBJS_BONUS)
+	$(CC) $(CFLAGS) $(MLXFLAGS) $(OBJS_BONUS) -o $(BONUS)
 
 $(NAME): 	$(OBJS)
 	$(CC) $(CFLAGS) $(MLXFLAGS) $(OBJS) $(OEXEC) 
 			@echo "\n$(BOLD)$(GREEN)Compilation de l'exécutable $(NAME) effectuée avec succès!\n" 
-		@echo "$(BLUE)$(BOLD)             8" && echo "           .d8b." && echo "       _.d8888888b._" && echo "     .88888888888888b." && echo "    d88888888888888888b" && echo "    8888888888888888888" && echo "    Y88888888888888888P" && echo "     'Y8888888888888P'" && echo "   _..._ 'Y88888P' _..._" && echo " .d88888b. Y888P .d88888b." && echo "d888888888b 888 d88888888b" && echo "888P  'Y8888888888P'  Y888" && echo " b8b    Y88888888P    d8Y" && echo "   \   #############  /" && echo "         dP d8b Yb" && echo "     Ob=dP d888b Yb=dO" && echo "       ¨  O88888O  ¨" && echo "           'Y8P'" &&echo "             '"
+		@echo "$(BLUE)$(BOLD)             8" && echo "           .d8b." && echo "       _.d8888888b._" && echo "     .88888888888888b." && echo "    d88888888888888888b" && echo "    8888888888888888888" && echo "    Y88888888888888888P" && echo "     'Y8888888888888P'" && echo "   _..._ 'Y88888P' _..._" && echo " .d88888b. Y888P .d88888b." && echo "d888888888b 888 d88888888b" && echo "888P  'Y8888888888P'  Y888" && echo " b8b    Y88888888P    d8Y" && echo "   \   #############  /" && echo "         dP d8b Yb" && echo "     Ob=dP d888b Yb=dO" && echo "       ¨  O88888O  ¨" && echo "           'Y8P'" &&echo "             '$(END) $(VIOLET)"
 
-obj_b:
-	@mkdir -p $(OBJS_DIR)
-	@mkdir -p $(OBJS_DIR)$(B_DIR)
+bonus:	$(INCLUDE) $(OBJS_BONUS) $(BONUS)
+	@echo "\n$(BOLD)$(VIOLET)BONUS FEATURE: \n - Random speed on tanks \n\nENJOY :)\n\n"
 
 obj:
-	@mkdir -p $(OBJS_DIR)
+	@mkdir -p $(OBJS_DIR) $(DIR)$(OBJS_DIR) $(B_DIR)$(OBJS_DIR)
 #	@echo "$(GREEN)$(BOLD)\nRépertoire pour objets créé avec succès!\n$(END)"
 
 libft:
@@ -121,11 +113,11 @@ libft:
 ## @echo "$(GREEN)$(BOLD)\nLibrairie de la Libft créée avec succès ! "
 
 clean:
-		$(RM) $(OBJS) $(OBJS_DIR)
+		$(RM) $(OBJS) $(OBJS_BONUS) $(OBJS_DIR)
 		@echo "\n $(RED)$(ITALIC)Les fichiers .o sont correctement supprimés\n $(END)"
 
 fclean: clean 
-		$(RM) ${NAME}
+		$(RM) ${NAME} $(BONUS) 
 		#@make fclean -sC $(LIBFT)
 		@echo "$(BOLD)$(RED)\nATTENTION! Purge effectuée.\n$(END)"
 
