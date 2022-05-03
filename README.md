@@ -13,6 +13,13 @@ Pour utiliser (seulement sur mac) :
             git clone "Https//.."
             
             make && ./so_long maps/map.ber
+            
+Sur Linux :
+- Suivre les premières instructions de la documentations de la MLX
+https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html
+- IL faut installer les packages et changer les flags du Makefile.
+Le jeu n'a pas été créé pour linux, les animations seront trop rapides, la transparence ne sera pas prise en compte. D'autres bugs peuvent exister. 
+
 
 MOUVEMENTS:   WASD         EXIT : ESC
 
