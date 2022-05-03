@@ -9,9 +9,10 @@ Le projet utilise des images pixel_art originales créés via Aseprite. Chaque s
 Le programme prend en argument une carte/map utilisée pour définir le niveau du jeu. Il faut gérer les cartes non-fonctionnelles. Plusieurs cartes sont inclues dans le répertoire maps/. Recommandé : map.ber
 
 Pour utiliser (seulement sur mac) :
-- Cloner le repo
-- make        //Crée l'exécutable so_long
-- ./so_long maps/map.ber
+            
+            git clone "Https//.."
+            
+            make && ./so_long maps/map.ber
 
 MOUVEMENTS:   W         EXIT : ESC
             
