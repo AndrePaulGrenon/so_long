@@ -1,6 +1,7 @@
 mlx/*
 objs/
 *.o
+mlx
 assets/*
 *.png
 *.xpm
