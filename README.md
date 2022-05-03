@@ -14,6 +14,7 @@ Pour utiliser (seulement sur mac) :
 - ./so_long maps/map.ber
 
 MOUVEMENTS:   W         EXIT : ESC
+            
              ASD
 
 OBJECTIFS:
