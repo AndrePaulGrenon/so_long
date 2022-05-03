@@ -14,9 +14,7 @@ Pour utiliser (seulement sur mac) :
             
             make && ./so_long maps/map.ber
 
-MOUVEMENTS:   W         EXIT : ESC
-            
-             ASD
+MOUVEMENTS:   WASD         EXIT : ESC
 
 OBJECTIFS:
   - RÉCOLTER TOUT LES CHAMPIGNONS RESTANT
