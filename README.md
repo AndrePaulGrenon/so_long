@@ -8,7 +8,7 @@ Le projet utilise des images pixel_art originales créés via Aseprite. Chaque s
 
 Le programme prend en argument une carte/map utilisée pour définir le niveau du jeu. Il faut gérer les cartes non-fonctionnelles. Plusieurs cartes sont inclues dans le répertoire maps/. Recommandé : map.ber
 
-Pour utiliser (seulement sur mac) :
+Pour utiliser mac :
             
             git clone "Https//.."
             
@@ -17,7 +17,7 @@ Pour utiliser (seulement sur mac) :
 Sur Linux :
 - Suivre les premières instructions de la documentations de la MLX
 https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html
-- IL faut installer les packages et changer les flags du Makefile.
+- IL faut installer les packages et changer les flags du Makefile avant de compiler. 
 Le jeu n'a pas été créé pour linux, les animations seront trop rapides, la transparence ne sera pas prise en compte. D'autres bugs peuvent exister. 
 
 
