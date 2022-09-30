@@ -6,7 +6,7 @@
 /*   By: agrenon <agrenon@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 16:56:47 by agrenon           #+#    #+#             */
-/*   Updated: 2022/04/28 10:25:21 by agrenon          ###   ########.fr       */
+/*   Updated: 2022/09/30 18:04:02 by agrenon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,18 @@ char	*ft_read_map(int fd)
 {
 	char	*temp;
 	int		i;
+	static	int	antibug = 0;
 
 	temp = malloc(sizeof(char) * (BUFF + 1));
 	temp[BUFF] = '\0';
 	i = read(fd, temp, BUFF);
+	antibug++;
 	if (i < BUFF)
 		temp = ft_trim(temp, i);
-	if (!i)
-	{	
+	if (!i || antibug > 100)
+	{
+		if (antibug > 100)
+			printf("STOP PUTTING DIRECTORIES! IDIOT! \n");
 		free(temp);
 		return (0);
 	}
